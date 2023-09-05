@@ -1,8 +1,9 @@
 %module(package="mfem._par") dist_solver
 %{
 #include "mfem.hpp"      
-#include "miniapps/shifted/dist_solver.hpp"
-#include "pyoperator.hpp"    
+#include "miniapps/common/dist_solver.hpp"
+#include "pyoperator.hpp"
+#include "../common/pysolvers.hpp"
 #include "../common/pycoefficient.hpp"  
 #include "numpy/arrayobject.h"    
 %}
@@ -12,7 +13,7 @@ import_array();
 %}
 
 %inline %{
-#include "miniapps/shifted/dist_solver.cpp"
+#include "miniapps/common/dist_solver.cpp"
 %}
 
 
@@ -23,6 +24,7 @@ import_array();
 %import "coefficient.i"
 %import "pgridfunc.i"
 %import "pmesh.i"
+%import "solvers.i"
 
-%include "miniapps/shifted/dist_solver.hpp"
+%include "miniapps/common/dist_solver.hpp"
 
