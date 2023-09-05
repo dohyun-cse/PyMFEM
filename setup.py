@@ -854,6 +854,7 @@ def cmake_make_mfem(serial=True):
 
     if do_bdist_wheel:
         ex_dir = os.path.join(cmake_opts['DCMAKE_INSTALL_PREFIX'], "examples")
+        error_occured = False
         for x in os.listdir(ex_dir):
             path = os.path.join(ex_dir, x)
 
@@ -868,8 +869,10 @@ def cmake_make_mfem(serial=True):
             try:
                 make_call(command, force_verbose=True)
             except Exception as e:
+                error_occured = True
                 print(f"Exception occured while setting rpath for {path}")
-
+        if error_occured:
+            raise ValueError
     os.chdir(pwd)
 
 
