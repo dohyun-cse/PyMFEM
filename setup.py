@@ -856,7 +856,15 @@ def cmake_make_mfem(serial=True):
         ex_dir = os.path.join(cmake_opts['DCMAKE_INSTALL_PREFIX'], "examples")
         for x in os.listdir(ex_dir):
             path = os.path.join(ex_dir, x)
-            command = ['chrpath', '-r', "$ORIGIN/../lib", path]
+
+            if platform == "linux" or platform == "linux2":
+                command = ['chrpath', '-r', "$ORIGIN/../lib", path]
+            elif platform == "darwin":
+                # OS X
+                command = ['patchelf', '--force-rpath', '--set-rpath', '$ORIGIN/../lib', path]
+            elif platform == "win32":
+                # Windows...
+                assert False, "Windows is not supported yet. Contribution is welcome"
             make_call(command, force_verbose=True)
 
     os.chdir(pwd)
