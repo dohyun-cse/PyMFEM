@@ -865,7 +865,10 @@ def cmake_make_mfem(serial=True):
             elif platform == "win32":
                 # Windows...
                 assert False, "Windows is not supported yet. Contribution is welcome"
-            make_call(command, force_verbose=True)
+            try:
+                make_call(command, force_verbose=True)
+            except Exception as e:
+                print(f"Exception occured while setting rpath for {path}")
 
     os.chdir(pwd)
 
