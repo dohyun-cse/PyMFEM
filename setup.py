@@ -862,7 +862,7 @@ def cmake_make_mfem(serial=True):
                 command = ['chrpath', '-r', "$ORIGIN/../lib", path]
             elif platform == "darwin":
                 # OS X
-                command = ['install_name_tool', '--add_rpath', '"@executable_path/../lib"', path]
+                command = ['install_name_tool', '-add_rpath', '"@executable_path/../lib"', path]
             elif platform == "win32":
                 # Windows...
                 assert False, "Windows is not supported yet. Contribution is welcome"
